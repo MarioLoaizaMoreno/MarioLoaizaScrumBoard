@@ -2,8 +2,7 @@ const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const Role = require("../models/role");
 const mongoose = require("mongoose");
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
+
 const registerUser = async (req, res) => {
   if (!req.body.name || !req.body.email || !req.body.password)
     return res.status(400).send("Incomplete data");
@@ -27,7 +26,7 @@ const registerUser = async (req, res) => {
 
   let result = await user.save();
   if (!result) return res.status(400).send("Failed to register user");
-
+  
   try {
     let jwtToken = user.generateJWT();
     res.status(200).send({ jwtToken });
@@ -35,8 +34,7 @@ const registerUser = async (req, res) => {
     return res.status(400).send("Token generation failed");
   }
 };
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
+
 const login = async (req, res) => {
   let user = await User.findOne({ email: req.body.email });
   if (!user) return res.status(400).send("Wrong email or password");
@@ -53,8 +51,7 @@ const login = async (req, res) => {
     return res.status(400).send("Login error");
   }
 };
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
+
 const listUser = async (req, res) => {
   let users = await User.find({ name: new RegExp(req.params["name"], "i") })
     .populate("roleId")
@@ -63,8 +60,7 @@ const listUser = async (req, res) => {
     return res.status(400).send("No search results");
   return res.status(200).send({ users });
 };
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
+
 const updateUser = async (req, res) => {
   if (!req.body._id || !req.body.name || !req.body.email || !req.body.roleId)
     return res.status(400).send("Incomplete data");
@@ -88,8 +84,7 @@ const updateUser = async (req, res) => {
   if (!user) return res.status(400).send("Error editing user");
   return res.status(200).send({ user });
 };
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
+
 const deleteUser = async (req, res) => {
   if (!req.body._id) return res.status(400).send("Incomplete data");
 
@@ -99,8 +94,7 @@ const deleteUser = async (req, res) => {
   if (!user) return res.status(400).send("Error delete user");
   return res.status(200).send({ user });
 };
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
+
 const registerAdmin = async (req, res) => {
   if (
     !req.body.name ||
@@ -136,8 +130,7 @@ const registerAdmin = async (req, res) => {
     return res.status(400).send("Token generation failed");
   }
 };
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
+
 module.exports = {
   registerUser,
   login,

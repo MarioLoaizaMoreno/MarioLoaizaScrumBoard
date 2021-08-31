@@ -3,8 +3,6 @@ const mongoose = require("mongoose");
 const fs = require("fs");
 const path = require("path");
 const moment = require("moment");
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
 
 const saveTask = async (req, res) => {
   if (!req.body.name || !req.body.description)
@@ -21,8 +19,7 @@ const saveTask = async (req, res) => {
   if (!result) return res.status(400).send("Error registering task");
   return res.status(200).send({ result });
 };
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
+
 const listTask = async (req, res) => {
   let board = await Board.find({ userId: req.user._id });
   if (!board || board.length === 0)
@@ -35,19 +32,15 @@ const saveTaskImg = async (req, res) => {
   if (!req.body.name || !req.body.description)
     return res.status(400).send("Incomplete data");
 
-  console.log(req.files);
-  let imageUrl = ""; // http://localhost:3001/uploads/23658538.png
-
+  console.log(req.files)
+  let imageUrl = ""; // http://localhost:3001/uploads/23658538.png  
+  
   if (req.files !== undefined && req.files.image.type) {
     let url = req.protocol + "://" + req.get("host") + "/";
-    let serverImg =
-      "./uploads/" + moment().unix() + path.extname(req.files.image.path);
-    fs.createReadStream(req.files.image.path).pipe(
-      fs.createWriteStream(serverImg)
-    );
-    imageUrl =
-      url + "uploads/" + moment().unix() + path.extname(req.files.image.path);
-  }
+    let serverImg = "./uploads/" + moment().unix() + path.extname(req.files.image.path);
+    fs.createReadStream(req.files.image.path).pipe(fs.createWriteStream(serverImg));
+    imageUrl = url + "uploads/" + moment().unix() + path.extname(req.files.image.path);
+  } 
 
   let board = new Board({
     userId: req.user._id,
@@ -80,16 +73,14 @@ const updateTask = async (req, res) => {
   if (!board) return res.status(400).send("Task not found");
   return res.status(200).send({ board });
 };
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
+
 const deleteTask = async (req, res) => {
   let validId = mongoose.Types.ObjectId.isValid(req.params._id);
   if (!validId) return res.status(400).send("Invalid id");
 
   let board = await Board.findByIdAndDelete(req.params._id);
   if (!board) return res.status(400).send("Task not found");
-  return res.status(200).send("Task deleted");
+  return res.status(200).send({message: "Task deleted"});
 };
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
+
 module.exports = { saveTask, listTask, updateTask, deleteTask, saveTaskImg };

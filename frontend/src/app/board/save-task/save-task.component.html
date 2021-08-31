@@ -1,1 +1,42 @@
-<p>save-task works!</p>
+<div class="bgComponent">
+    <div class="form">
+      <mat-card class="card">
+        <mat-card-title>Create task</mat-card-title>
+        <mat-card-content>
+          <div class="container">
+            <mat-form-field>
+              <input
+                [(ngModel)]="registerData.name"
+                matInput
+                placeholder="task name"
+                required
+              />
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                [(ngModel)]="registerData.description"
+                matInput
+                placeholder="Description"
+                required
+              />
+            </mat-form-field>
+            
+              <input
+              type="file" (change)="uploadImg($event)"
+              />
+            
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            (click)="saveTaskImg()"
+            class="button colorButton"
+            mat-raised-button
+          >
+            Register
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+  

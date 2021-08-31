@@ -13,3 +13,4 @@ export class RegisterRoleComponent implements OnInit {
   }
 
 }
+

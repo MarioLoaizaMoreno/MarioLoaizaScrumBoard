@@ -4,8 +4,7 @@ const UserController = require("../controllers/user");
 const Auth = require("../middleware/auth");
 const ValidateUser = require("../middleware/validateUser");
 const Admin = require("../middleware/admin");
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
+
 router.post("/registerUser", UserController.registerUser);
 router.post("/login", UserController.login);
 router.get(
@@ -24,6 +23,5 @@ router.post(
   Admin,
   UserController.registerAdmin
 );
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
+
 module.exports = router;

@@ -6,8 +6,7 @@ const ValidateUser = require("../middleware/validateUser");
 const Upload = require("../middleware/file");
 const multiparty = require("connect-multiparty");
 const mult = multiparty();
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
+
 router.post("/saveTask", Auth, ValidateUser, BoardController.saveTask);
 router.get("/listTask", Auth, ValidateUser, BoardController.listTask);
 router.put("/updateTask", Auth, ValidateUser, BoardController.updateTask);
@@ -25,6 +24,5 @@ router.post(
   ValidateUser,
   BoardController.saveTaskImg
 );
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
+
 module.exports = router;

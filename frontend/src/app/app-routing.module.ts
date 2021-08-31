@@ -11,58 +11,67 @@ import { SaveTaskComponent } from './board/save-task/save-task.component';
 import { LoginComponent } from './home/login/login.component';
 import { RegisterComponent } from './home/register/register.component';
 
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: LoginComponent,
-    pathMatch: 'full'
-
+    pathMatch: 'full',
   },
   {
     path: 'listTaks',
-    component: ListTaskComponent
+    component: ListTaskComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'saveTaks',
-    component: SaveTaskComponent
+    component: SaveTaskComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'signUp',
-    component: RegisterComponent
+    component: RegisterComponent,
   },
   {
     path: 'registerUser',
-    component: RegisterUserComponent
+    component: RegisterUserComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'updateUser',
-    component: UpdateUserComponent
+    component: UpdateUserComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'listUser',
-    component: ListUserComponent
+    component: ListUserComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'registerRole',
-    component: RegisterRoleComponent
+    component: RegisterRoleComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'listRole',
-    component: ListRoleComponent
+    component: ListRoleComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'updateRole',
-    component: UpdateRoleComponent
-  }
+    component: UpdateRoleComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
+
